@@ -6,6 +6,7 @@ import { withData } from "./withDataHOC"; //HOC
 const Speakers = ({speakers}) => {
   // const speakers = useContext(SpeakersContext); //example of using context
   
+  
   return (
     <div>
       {speakers.map(({ imageSrc, name }) => (
