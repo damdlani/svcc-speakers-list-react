@@ -27,6 +27,9 @@ const Page = () => {
           #winter
         </span>
       </div>
+      <div className="px-6 py-4">
+        <button className="button-blue">Subscribe</button>
+      </div>
     </div>
   );
 };
