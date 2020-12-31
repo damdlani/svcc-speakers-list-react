@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SearchBar = () => {
+export const SearchBar = ({searchQuery, setSearchQuery}) => {
   return (
     <div className="mb-6 ">
       <input
@@ -8,6 +8,8 @@ export const SearchBar = () => {
         id="username"
         type="text"
         placeholder="Search by name"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
     </div>
   );
