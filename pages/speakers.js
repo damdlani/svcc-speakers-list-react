@@ -8,8 +8,18 @@ import { speakers } from "../src/components/Speakers/speakersData";
 
 const Page = () => {
   //example of using context
+  // return (
+  //   <SpeakersContext.Provider value={speakers}> 
+  //     <div>
+  //       <Header />
+  //       <Menu />
+  //       <SearchBar />
+  //       <Footer />
+  //       <Speakers />
+  //     </div>
+  //   </SpeakersContext.Provider>
+  // );
   return (
-    <SpeakersContext.Provider value={speakers}> 
       <div>
         <Header />
         <Menu />
@@ -17,7 +27,6 @@ const Page = () => {
         <Footer />
         <Speakers />
       </div>
-    </SpeakersContext.Provider>
   );
 };
 

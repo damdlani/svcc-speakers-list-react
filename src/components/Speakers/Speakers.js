@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { SpeakersContext } from "./SpeakersContext";
-// import { withData } from "./withData"; //HOC
+import React from "react";
+// import { SpeakersContext } from "./SpeakersContext";
+import { withData } from "./withDataHOC"; //HOC
 // import { SpeakersRenderProps } from "./SpeakersRenderProps"; //rendering props for children
 
-const Speakers = () => {
-  const speakers = useContext(SpeakersContext); //example of using context
+const Speakers = ({speakers}) => {
+  // const speakers = useContext(SpeakersContext); //example of using context
   
   return (
     <div>
@@ -32,8 +32,8 @@ const Speakers = () => {
 //   );
 // };
 
-//example of HOC use along with 'withDataHOC'
-// const maxSpeakerToShow = 2;
-// export default withData(maxSpeakerToShow)(Speakers);
+// example of HOC use along with 'withDataHOC'
+const maxSpeakerToShow = 2;
+export default withData(maxSpeakerToShow)(Speakers);
 
-export default Speakers;
+// export default Speakers;
