@@ -1,26 +1,35 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Speaker } from "../Speaker/Speaker";
 import { SearchBar } from "../SpeakersSearchBar/SearchBar";
-import { speakersArray } from "./speakersData";
 
 const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [speakers, setSpeakers] = useState(speakersArray);
+  const [speakers, setSpeakers] = useState([]);
 
-  const onFavoriteToggleHandler = (speaker) => {
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get("http://localhost:4000/speakers");
+      setSpeakers(response.data);
+    })();
+  }, [])
+
+  const onFavoriteToggleHandler = async (speaker) => {
     const toggledSpeaker = {
       ...speaker,
       isFavorite: !speaker.isFavorite,
     };
     const index = speakers.map(({id}) => id).indexOf(speaker.id);
-
+    await axios.put(`http://localhost:4000/speakers/${speaker.id}`, toggledSpeaker);
     setSpeakers([
       ...speakers.slice(0, index),
       toggledSpeaker,
       ...speakers.slice(index + 1)
     ]);
   };
-
+  if(speakers.length === 0){
+    return <div>Loading data...</div>
+  };
   return (
     <section>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
