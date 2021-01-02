@@ -1,7 +1,10 @@
 import React from "react";
 
-export const FavouriteButton = ({ isFavorite }) => {
+export const FavouriteButton = ({ isFavorite, onFavoriteToggle }) => {
   return (
-    <div className={isFavorite ? "heartredbutton" : "heartdarkbutton"}></div>
+    <div
+      className={isFavorite ? "heartredbutton" : "heartdarkbutton"}
+      onClick={onFavoriteToggle}
+    ></div>
   );
 };

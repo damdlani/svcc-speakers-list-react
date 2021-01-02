@@ -1,5 +1,5 @@
 const pathName = "images";
-export const speakers = [
+export const speakersArray = [
   {
     imageSrc: `${pathName}/speaker-component-1124`,
     name: 'Douglas Crockford',

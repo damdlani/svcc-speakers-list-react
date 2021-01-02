@@ -1,14 +1,17 @@
 import React from "react";
-import { FavouriteButton } from "./FavoriteButton";
+import { FavouriteButton as FavoriteButton } from "./FavoriteButton";
 import { SpeakerImage } from "./SpeakerImage";
 
-export const Speaker = ({ id, firstName, lastName, bio, isFavorite }) => {
+export const Speaker = ({ id, firstName, lastName, bio, isFavorite, onFavoriteToggle }) => {
   return (
     <div className="rounded overflow-hidden shadow-lg p-6">
       <div className="grid grid-cols-4 mb-6">
         <div className="font-bold text-lg col-span-3">{`${firstName} ${lastName}`}</div>
         <div className="flex justify-end">
-          <FavouriteButton isFavorite={isFavorite} />
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onFavoriteToggle={onFavoriteToggle}
+          />
         </div>
       </div>
       <div className="mb-6">

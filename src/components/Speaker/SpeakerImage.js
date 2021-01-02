@@ -7,7 +7,7 @@ export const SpeakerImage = ({id}) => {
   return (
     <SimpleImg
       src={imageURL} 
-      animationDuration="1"
+      animationDuration="0.5"
       height={200}
       width={200}
       applyAspectRatio={true}
