@@ -7,29 +7,55 @@ const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [speakers, setSpeakers] = useState([]);
 
+  const REQUEST_STATUS = {
+    loading: "loading",
+    success: "success",
+    error: "error",
+  };
+
+  const [status, setStatus] = useState(REQUEST_STATUS.loading);
+
   useEffect(() => {
     (async () => {
-      const response = await axios.get("http://localhost:4000/speakers");
-      setSpeakers(response.data);
+      try {
+        const response = await axios.get("http://localhost:4000/speakers");
+        setSpeakers(response.data);
+        setStatus(REQUEST_STATUS.success);
+      } catch (error) {
+        setStatus(REQUEST_STATUS.error)
+      }
     })();
-  }, [])
+  }, []);
 
   const onFavoriteToggleHandler = async (speaker) => {
     const toggledSpeaker = {
       ...speaker,
       isFavorite: !speaker.isFavorite,
     };
-    const index = speakers.map(({id}) => id).indexOf(speaker.id);
-    await axios.put(`http://localhost:4000/speakers/${speaker.id}`, toggledSpeaker);
-    setSpeakers([
-      ...speakers.slice(0, index),
-      toggledSpeaker,
-      ...speakers.slice(index + 1)
-    ]);
+    const index = speakers.map(({ id }) => id).indexOf(speaker.id);
+    try {
+      await axios.put(
+        `http://localhost:4000/speakers/${speaker.id}`,
+        toggledSpeaker
+      );
+      setSpeakers([
+        ...speakers.slice(0, index),
+        toggledSpeaker,
+        ...speakers.slice(index + 1),
+      ]);
+    } catch (error) {
+      setStatus(REQUEST_STATUS.error)
+    }
   };
-  if(speakers.length === 0){
-    return <div>Loading data...</div>
-  };
+
+  if (status === REQUEST_STATUS.loading) {
+    return <div className="spinner" />;
+  }
+
+  if (status === REQUEST_STATUS.error) {
+    return <div>An error occured. Is json-server running? (try 'npm run json-server' at terminal prompt)</div>;
+  }
+
   return (
     <section>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -42,7 +68,11 @@ const Speakers = () => {
               : targetString.includes(searchQuery.trim().toLowerCase());
           })
           .map((speaker) => (
-            <Speaker key={speaker.id} {...speaker} onFavoriteToggle={() => onFavoriteToggleHandler(speaker)} />
+            <Speaker
+              key={speaker.id}
+              {...speaker}
+              onFavoriteToggle={() => onFavoriteToggleHandler(speaker)}
+            />
           ))}
       </div>
     </section>

@@ -28,7 +28,7 @@ const Page = () => {
         </span>
       </div>
       <div className="px-6 py-4">
-        <button className="button-blue">Subscribe</button>
+        <button className="btn-blue">Subscribe</button>
       </div>
     </div>
   );
