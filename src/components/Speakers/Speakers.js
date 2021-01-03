@@ -1,11 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Speaker } from "../Speaker/Speaker";
 import { SearchBar } from "../SpeakersSearchBar/SearchBar";
 
 const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [speakers, setSpeakers] = useState([]);
 
   const REQUEST_STATUS = {
     loading: "loading",
@@ -13,16 +12,48 @@ const Speakers = () => {
     error: "error",
   };
 
-  const [status, setStatus] = useState(REQUEST_STATUS.loading);
+  const initialState = {
+    speakers: [],
+    status: REQUEST_STATUS.loading,
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "FETCH_SUCCESS":
+        return {
+          ...state,
+          speakers: action.speakers,
+          status: REQUEST_STATUS.success,
+        };
+      case "UPDATE_STATUS":
+        return {
+          ...state,
+          status: action.status,
+        };
+      case "TOGGLE_FAVORITE":
+        return {
+          ...state,
+          speakers: action.speakers,
+        };
+      default: return state;
+    }
+  };
+
+  const [{ speakers, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     (async () => {
       try {
         const response = await axios.get("http://localhost:4000/speakers");
-        setSpeakers(response.data);
-        setStatus(REQUEST_STATUS.success);
+        dispatch({
+          type: "FETCH_SUCCESS",
+          speakers: response.data,
+        })
       } catch (error) {
-        setStatus(REQUEST_STATUS.error)
+        dispatch({
+          type: "UPDATE_STATUS",
+          status: REQUEST_STATUS.error,
+        })
       }
     })();
   }, []);
@@ -38,13 +69,19 @@ const Speakers = () => {
         `http://localhost:4000/speakers/${speaker.id}`,
         toggledSpeaker
       );
-      setSpeakers([
-        ...speakers.slice(0, index),
-        toggledSpeaker,
-        ...speakers.slice(index + 1),
-      ]);
+      dispatch({
+        type: "TOGGLE_FAVORITE",
+        speakers: [
+          ...speakers.slice(0, index),
+          toggledSpeaker,
+          ...speakers.slice(index + 1),
+        ],
+      });
     } catch (error) {
-      setStatus(REQUEST_STATUS.error)
+      dispatch({
+        type: "UPDATE_STATUS",
+        status: REQUEST_STATUS.error,
+      })
     }
   };
 
@@ -53,7 +90,12 @@ const Speakers = () => {
   }
 
   if (status === REQUEST_STATUS.error) {
-    return <div>An error occured. Is json-server running? (try 'npm run json-server' at terminal prompt)</div>;
+    return (
+      <div>
+        An error occured. Is json-server running? (try 'npm run json-server' at
+        terminal prompt)
+      </div>
+    );
   }
 
   return (
