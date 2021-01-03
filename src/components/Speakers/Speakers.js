@@ -1,87 +1,65 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
+import {
+  FETCH_FAILURE,
+  FETCH_SUCCESS,
+  PUT_FAILURE,
+  PUT_SUCCESS,
+} from "../../actions/requestActions";
+import {
+  initialState,
+  requestReducer,
+  REQUEST_STATUS,
+} from "../../reducers/requestReducer";
 import { Speaker } from "../Speaker/Speaker";
 import { SearchBar } from "../SpeakersSearchBar/SearchBar";
 
 const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const REQUEST_STATUS = {
-    loading: "loading",
-    success: "success",
-    error: "error",
-  };
-
-  const initialState = {
-    speakers: [],
-    status: REQUEST_STATUS.loading,
-  };
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "FETCH_SUCCESS":
-        return {
-          ...state,
-          speakers: action.speakers,
-          status: REQUEST_STATUS.success,
-        };
-      case "UPDATE_STATUS":
-        return {
-          ...state,
-          status: action.status,
-        };
-      case "TOGGLE_FAVORITE":
-        return {
-          ...state,
-          speakers: action.speakers,
-        };
-      default: return state;
-    }
-  };
-
-  const [{ speakers, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ records: speakers, status, error }, dispatch] = useReducer(
+    requestReducer,
+    initialState
+  );
 
   useEffect(() => {
     (async () => {
       try {
         const response = await axios.get("http://localhost:4000/speakers");
         dispatch({
-          type: "FETCH_SUCCESS",
-          speakers: response.data,
-        })
+          type: FETCH_SUCCESS,
+          records: response.data,
+        });
       } catch (error) {
         dispatch({
-          type: "UPDATE_STATUS",
+          type: FETCH_FAILURE,
           status: REQUEST_STATUS.error,
-        })
+          error: error.message,
+        });
       }
     })();
   }, []);
 
   const onFavoriteToggleHandler = async (speaker) => {
-    const toggledSpeaker = {
-      ...speaker,
-      isFavorite: !speaker.isFavorite,
-    };
-    const index = speakers.map(({ id }) => id).indexOf(speaker.id);
     try {
+      const toggledSpeaker = {
+        ...speaker,
+        isFavorite: !speaker.isFavorite,
+      };
       await axios.put(
         `http://localhost:4000/speakers/${speaker.id}`,
         toggledSpeaker
       );
       dispatch({
-        type: "TOGGLE_FAVORITE",
-        speakers: [
-          ...speakers.slice(0, index),
-          toggledSpeaker,
-          ...speakers.slice(index + 1),
-        ],
+        type: PUT_SUCCESS,
+        record: toggledSpeaker,
       });
     } catch (error) {
       dispatch({
-        type: "UPDATE_STATUS",
+        type: PUT_FAILURE,
         status: REQUEST_STATUS.error,
-      })
+        error: error.message,
+      });
     }
   };
 
@@ -93,7 +71,7 @@ const Speakers = () => {
     return (
       <div>
         An error occured. Is json-server running? (try 'npm run json-server' at
-        terminal prompt)
+        terminal prompt)<br></br> {`ERROR MESSAGE: ${error}`}
       </div>
     );
   }
