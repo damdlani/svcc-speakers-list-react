@@ -43,13 +43,13 @@ export const requestReducer = (state, action) => {
           ...records.slice(recordIndex + 1),
         ],
       };
-      case PUT_FAILURE:
-        console.log("Error occured")
-        return {
-          ...state,
-          status: REQUEST_STATUS.error,
-          error: action.error,
-        };
+    case PUT_FAILURE:
+      console.log("Error occured");
+      return {
+        ...state,
+        status: REQUEST_STATUS.error,
+        error: action.error,
+      };
     default:
       return state;
   }

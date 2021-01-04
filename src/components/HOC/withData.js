@@ -1,4 +1,4 @@
-import { speakers } from "./speakersData";
+import { speakers } from "../Speakers/speakersData";
 
 export const withData = (maxSpeakersToShow) => (Component) => {
 
