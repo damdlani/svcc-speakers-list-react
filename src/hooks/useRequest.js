@@ -1,27 +1,28 @@
 import axios from "axios";
-import React, { useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import {
   FETCH_FAILURE,
   FETCH_SUCCESS,
   PUT_FAILURE,
   PUT_SUCCESS,
-} from "../../actions/requestActions";
+} from "../actions/requestActions";
 import {
   requestReducer,
   REQUEST_STATUS,
-} from "../../reducers/requestReducer";
+} from "../reducers/requestReducer";
 
-export const withRequest = (baseURL, route) => (Component) => (props) => {
+export const useRequest = (baseURL, route) => {
   const initialState = {
     records: [],
     status: REQUEST_STATUS.loading,
     error: null,
   };
-  
+
   const [{ records, status, error }, dispatch] = useReducer(
     requestReducer,
     initialState
   );
+
   useEffect(() => {
     (async () => {
       try {
@@ -40,10 +41,10 @@ export const withRequest = (baseURL, route) => (Component) => (props) => {
     })();
   }, [baseURL, route]);
 
-  const propsLocal = {
-    records: records,
-    status: status,
-    error: error,
+  const state = {
+    records,
+    status,
+    error,
     put: (async (record) => {
       try {
         await axios.put(`${baseURL}/${route}/${record.id}`, record);
@@ -60,5 +61,6 @@ export const withRequest = (baseURL, route) => (Component) => (props) => {
       }
     }),
   };
-  return <Component {...props} {...propsLocal}></Component>;
+
+  return state;
 };

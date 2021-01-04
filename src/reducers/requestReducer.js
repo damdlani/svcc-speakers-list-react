@@ -11,12 +11,6 @@ export const REQUEST_STATUS = {
   error: "error",
 };
 
-export const initialState = {
-  records: [],
-  status: REQUEST_STATUS.loading,
-  error: null,
-};
-
 export const requestReducer = (state, action) => {
   switch (action.type) {
     case FETCH_SUCCESS:
