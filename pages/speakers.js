@@ -5,7 +5,7 @@ const Page = () => {
 
   return (
     <Layout>
-      <Speakers bgColor='bg-gray-500'/>
+      <Speakers />
     </Layout>
   );
 };
