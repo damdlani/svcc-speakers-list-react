@@ -12,7 +12,7 @@ import {
   REQUEST_STATUS,
 } from "../../reducers/requestReducer";
 
-export const withRequest = (baseURL, route) => (Component) => (props) => {
+const Request = ({baseURL, route, children}) => {
   const [{ records, status, error }, dispatch] = useReducer(
     requestReducer,
     initialState
@@ -35,11 +35,11 @@ export const withRequest = (baseURL, route) => (Component) => (props) => {
     })();
   }, [baseURL, route]);
 
-  const propsLocal = {
-    records: records,
-    status: status,
-    error: error,
-    put: (async (record) => {
+  const childProps = {
+    records,
+    status,
+    error,
+    put: async (record) => {
       try {
         await axios.put(`${baseURL}/${route}/${record.id}`, record);
         dispatch({
@@ -53,7 +53,9 @@ export const withRequest = (baseURL, route) => (Component) => (props) => {
           error: error.message,
         });
       }
-    }),
+    },
   };
-  return <Component {...props} {...propsLocal}></Component>;
+  return children(childProps);
 };
+
+export default Request;
