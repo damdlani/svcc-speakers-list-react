@@ -12,7 +12,7 @@ import {
   REQUEST_STATUS,
 } from "../../reducers/requestReducer";
 
-export const withRequest = (baseURL, route) => (Component) => () => {
+export const withRequest = (baseURL, route) => (Component) => (props) => {
   const [{ records, status, error }, dispatch] = useReducer(
     requestReducer,
     initialState
@@ -35,7 +35,7 @@ export const withRequest = (baseURL, route) => (Component) => () => {
     })();
   }, []);
 
-  const props = {
+  const propsLocal = {
     records: records,
     status: status,
     error: error,
@@ -55,5 +55,5 @@ export const withRequest = (baseURL, route) => (Component) => () => {
       }
     }),
   };
-  return <Component {...props}></Component>;
+  return <Component {...props} {...propsLocal}></Component>;
 };

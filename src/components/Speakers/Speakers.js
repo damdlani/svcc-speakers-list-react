@@ -1,13 +1,10 @@
 
 import React, { useState } from "react";
-import {
-  REQUEST_STATUS,
-} from "../../reducers/requestReducer";
 import { withRequest } from "../HOC/withRequest";
 import { Speaker } from "../Speaker/Speaker";
 import { SearchBar } from "../SpeakersSearchBar/SearchBar";
 
-const Speakers = ({ records: speakers, status, error, put }) => {
+const Speakers = ({ records: speakers, status, error, put, bgColor }) => {
   const [searchQuery, setSearchQuery] = useState(""); 
 
   const onFavoriteToggleHandler = (speaker) => {
@@ -17,12 +14,12 @@ const Speakers = ({ records: speakers, status, error, put }) => {
     };
     return put(toggledSpeaker);
   };
-
-  if (status === REQUEST_STATUS.loading) {
+  
+  if (status.includes("loading")) {
     return <div className="spinner" />;
   }
 
-  if (status === REQUEST_STATUS.error) {
+  if (status.includes("error")) {
     return (
       <div>
         An error occured. Is json-server running? (try 'npm run json-server' at
@@ -32,7 +29,7 @@ const Speakers = ({ records: speakers, status, error, put }) => {
   }
 
   return (
-    <section>
+    <section className={bgColor}>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-12">
         {speakers
