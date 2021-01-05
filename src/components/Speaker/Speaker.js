@@ -1,8 +1,34 @@
 import React from "react";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import { FavouriteButton as FavoriteButton } from "./FavoriteButton";
 import { SpeakerImage } from "./SpeakerImage";
 
-export const Speaker = React.memo(({ id, firstName, lastName, bio, isFavorite, put }) => {
+const SpeakerComponent = ({
+  id,
+  firstName,
+  lastName,
+  bio,
+  isFavorite,
+  put,
+  showErrorCard,
+}) => {
+
+  if (showErrorCard) {
+    return (
+      <div className="rounded overflow-hidden shadow-lg p-6 bg-white">
+        <div className="grid grid-cols-4 mb-6">
+          <div className="font-bold text-lg col-span-3">
+            Error Showing Speaker
+          </div>
+        </div>
+        <div className="mb-6">
+          <img src="/speakerimages/dummy-speaker-image.jpg" />
+        </div>
+        <div>Contact site owner for resolution.</div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded overflow-hidden shadow-lg p-6 bg-white text-black">
       <div className="grid grid-cols-4 mb-6">
@@ -27,5 +53,13 @@ export const Speaker = React.memo(({ id, firstName, lastName, bio, isFavorite, p
       </div>
       <div className="text-gray-600">{bio.substr(0, 70) + "..."}</div>
     </div>
+  );
+};
+
+export const Speaker = React.memo((props) => {
+  return (
+    <ErrorBoundary errorUI={<SpeakerComponent showErrorCard={true}></SpeakerComponent>}>
+      <SpeakerComponent {...props} />
+    </ErrorBoundary>
   );
 });
