@@ -11,7 +11,7 @@ import {
 const LayoutComponent = ({ children }) => {
   const { theme } = useContext(ThemeContext);
   const backgroundValue =
-    theme === ThemeList.LIGHT ? "bg-white " : "bg-gray-700 text-white";
+    theme === ThemeList.LIGHT ? "bg-white " : "bg-gray-700";
 
   return (
     <div className={`overflow-auto ${backgroundValue}`}>

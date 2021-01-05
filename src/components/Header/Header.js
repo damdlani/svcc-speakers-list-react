@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = () => (
-  <div className="bg-gray-200 rounded-md mb-6 p-6 pt-12 pb-12 text-black">
+  <div className="bg-gray-200 rounded-md mb-6 p-6 pt-12 pb-12">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div className="col-span-1 text-center mb-6 md:mb-0">
         <h6 className="uppercase">October 19-20&nbsp;&nbsp;2019</h6>
