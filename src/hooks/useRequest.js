@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useRef } from "react";
+import { store } from "react-notifications-component";
 import {
   FETCH_FAILURE,
   FETCH_SUCCESS,
@@ -47,9 +48,9 @@ export const useRequest = (baseURL, route) => {
     })();
 
     return () => {
-      console.log('Component terminated and axios request canceled');
+      console.log("Component terminated and axios request canceled");
       signal.current.cancel();
-    }
+    };
   }, [baseURL, route]);
 
   const state = {
@@ -70,6 +71,19 @@ export const useRequest = (baseURL, route) => {
         dispatch({
           type: PUT_FAILURE,
           error: error.message,
+        });
+        store.addNotification({
+          title: "Favorite status update failure. ",
+          message: `Speaker: ${record.firstName} ${record.lastName}`,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 2000,
+            onScreen: true,
+          },
         });
       }
     }, []),

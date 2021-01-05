@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import  Header  from "../Header/Header";
-import  Menu  from "../Menu/Menu";
-import  Footer  from "../Footer/Footer";
+import ReactNotification from 'react-notifications-component';
+import Header from "../Header/Header";
+import Menu from "../Menu/Menu";
+import Footer from "../Footer/Footer";
 import {
   ThemeContext,
   ThemeList,
@@ -15,6 +16,7 @@ const LayoutComponent = ({ children }) => {
 
   return (
     <div className={`overflow-auto ${backgroundValue}`}>
+      <ReactNotification />
       <div className="mx-4 my-3">
         <Header />
         <Menu />
