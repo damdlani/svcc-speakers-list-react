@@ -1,15 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import {
   FETCH_FAILURE,
   FETCH_SUCCESS,
   PUT_FAILURE,
   PUT_SUCCESS,
 } from "../actions/requestActions";
-import {
-  requestReducer,
-  REQUEST_STATUS,
-} from "../reducers/requestReducer";
+import { requestReducer, REQUEST_STATUS } from "../reducers/requestReducer";
 
 export const useRequest = (baseURL, route) => {
   const initialState = {
@@ -23,22 +20,35 @@ export const useRequest = (baseURL, route) => {
     initialState
   );
 
+  const signal = useRef(axios.CancelToken.source());
+
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`${baseURL}/${route}`);
+        const response = await axios.get(`${baseURL}/${route}`, {
+          cancelToken: signal.current.token,
+        });
         dispatch({
           type: FETCH_SUCCESS,
           records: response.data,
         });
       } catch (error) {
-        dispatch({
-          type: FETCH_FAILURE,
-          status: REQUEST_STATUS.error,
-          error: error.message,
-        });
+        if (axios.isCancel(error)) {
+          console.log("Get request canceled");
+        } else {
+          dispatch({
+            type: FETCH_FAILURE,
+            status: REQUEST_STATUS.error,
+            error: error.message,
+          });
+        }
       }
     })();
+
+    return () => {
+      console.log('Component terminated and axios request canceled');
+      signal.current.cancel();
+    }
   }, [baseURL, route]);
 
   const state = {
