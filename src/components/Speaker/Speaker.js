@@ -2,7 +2,7 @@ import React from "react";
 import { FavouriteButton as FavoriteButton } from "./FavoriteButton";
 import { SpeakerImage } from "./SpeakerImage";
 
-export const Speaker = ({ id, firstName, lastName, bio, isFavorite, onFavoriteToggle }) => {
+export const Speaker = React.memo(({ id, firstName, lastName, bio, isFavorite, put }) => {
   return (
     <div className="rounded overflow-hidden shadow-lg p-6 bg-white text-black">
       <div className="grid grid-cols-4 mb-6">
@@ -10,7 +10,15 @@ export const Speaker = ({ id, firstName, lastName, bio, isFavorite, onFavoriteTo
         <div className="flex justify-end">
           <FavoriteButton
             isFavorite={isFavorite}
-            onFavoriteToggle={onFavoriteToggle}
+            onFavoriteToggle={() => {
+              put({
+                id,
+                firstName,
+                lastName,
+                bio,
+                isFavorite: !isFavorite,
+              });
+            }}
           />
         </div>
       </div>
@@ -20,4 +28,4 @@ export const Speaker = ({ id, firstName, lastName, bio, isFavorite, onFavoriteTo
       <div className="text-gray-600">{bio.substr(0, 70) + "..."}</div>
     </div>
   );
-};
+});

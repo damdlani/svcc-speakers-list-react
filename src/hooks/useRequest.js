@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import {
   FETCH_FAILURE,
   FETCH_SUCCESS,
@@ -45,7 +45,7 @@ export const useRequest = (baseURL, route) => {
     records,
     status,
     error,
-    put: (async (record) => {
+    put: React.useCallback(async (record) => {
       try {
         await axios.put(`${baseURL}/${route}/${record.id}`, record);
         dispatch({
@@ -59,7 +59,7 @@ export const useRequest = (baseURL, route) => {
           error: error.message,
         });
       }
-    }),
+    }, []),
   };
 
   return state;

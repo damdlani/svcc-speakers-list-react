@@ -15,14 +15,6 @@ const SpeakersComponent = () => {
 
   const specialMessage = "";
 
-  const onFavoriteToggleHandler = (speaker) => {
-    const toggledSpeaker = {
-      ...speaker,
-      isFavorite: !speaker.isFavorite,
-    };
-    return put(toggledSpeaker);
-  };
-
   if (status.includes("loading")) {
     return <div className="spinner" />;
   }
@@ -61,7 +53,7 @@ const SpeakersComponent = () => {
             <Speaker
               key={speaker.id}
               {...speaker}
-              onFavoriteToggle={() => onFavoriteToggleHandler(speaker)}
+              put={put}
             />
           ))}
       </div>
