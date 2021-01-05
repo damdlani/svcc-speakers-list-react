@@ -4,7 +4,7 @@ import { SpeakerImage } from "./SpeakerImage";
 
 export const Speaker = ({ id, firstName, lastName, bio, isFavorite, onFavoriteToggle }) => {
   return (
-    <div className="rounded overflow-hidden shadow-lg p-6">
+    <div className="rounded overflow-hidden shadow-lg p-6 bg-white text-black">
       <div className="grid grid-cols-4 mb-6">
         <div className="font-bold text-lg col-span-3">{`${firstName} ${lastName}`}</div>
         <div className="flex justify-end">

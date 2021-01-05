@@ -3,7 +3,7 @@ import { Layout } from "../src/components/Layout/Layout";
 const Page = () => {
   return (
     <Layout>
-      <div className="text-gray-600">
+      <div >
         <div className="m-6">
           <p>
             Silicon Valley Code Camp is a two-day technical conference in
