@@ -5,6 +5,7 @@ import {
   FETCH_SUCCESS,
   PUT_FAILURE,
   PUT_SUCCESS,
+  PUT,
 } from "../actions/requestActions";
 import { requestReducer, REQUEST_STATUS } from "../reducers/requestReducer";
 
@@ -57,15 +58,17 @@ export const useRequest = (baseURL, route) => {
     error,
     put: React.useCallback(async (record) => {
       try {
+        dispatch({
+          type: PUT,
+          record: record,
+        });
         await axios.put(`${baseURL}/${route}/${record.id}`, record);
         dispatch({
           type: PUT_SUCCESS,
-          record: record,
         });
       } catch (error) {
         dispatch({
           type: PUT_FAILURE,
-          status: REQUEST_STATUS.error,
           error: error.message,
         });
       }

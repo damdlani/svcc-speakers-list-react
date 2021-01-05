@@ -5,7 +5,7 @@
       "firstName": "Tamara",
       "lastName": "Baker",
       "bio": "Tammy has held a number of executive and management roles over the past 15 years, including VP engineering Roles at Molekule Inc., Cantaloupe Systems, E-Color, and Untangle Inc.",
-      "isFavorite": false
+      "isFavorite": true
     },
     {
       "id": 5996,
@@ -18,10 +18,8 @@
       "id": 10803,
       "firstName": "Eugene",
       "lastName": "Chuvyrov",
-      "sat": true,
-      "sun": false,
-      "isFavorite": false,
-      "bio": "Eugene Chuvyrov is  a Senior Cloud Architect at Microsoft. He works directly with both startups and enterprises to enable their solutions in Microsoft cloud, and to make Azure better as a result of this work with partners."
+      "bio": "Eugene Chuvyrov is  a Senior Cloud Architect at Microsoft. He works directly with both startups and enterprises to enable their solutions in Microsoft cloud, and to make Azure better as a result of this work with partners.",
+      "isFavorite": true
     },
     {
       "id": 1124,

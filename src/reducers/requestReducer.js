@@ -3,6 +3,7 @@ import {
   FETCH_FAILURE,
   PUT_FAILURE,
   PUT_SUCCESS,
+  PUT,
 } from "../actions/requestActions";
 
 export const REQUEST_STATUS = {
@@ -25,23 +26,26 @@ export const requestReducer = (state, action) => {
         status: REQUEST_STATUS.error,
         error: action.error,
       };
-    case PUT_SUCCESS:
+    case PUT:
       const { records } = state;
       const { record } = action;
       const recordIndex = records.map(({ id }) => id).indexOf(record.id);
       return {
         ...state,
+        prevRecords: records,
         records: [
           ...records.slice(0, recordIndex),
           record,
           ...records.slice(recordIndex + 1),
         ],
       };
+    case PUT_SUCCESS: 
+      return state;
     case PUT_FAILURE:
       console.log("Error occured");
       return {
         ...state,
-        status: REQUEST_STATUS.error,
+        records: state.prevRecords,
         error: action.error,
       };
     default:
