@@ -51,7 +51,7 @@ const SpeakerComponent = ({
       <div className="mb-6">
         <SpeakerImage id={id} />
       </div>
-      <div className="text-gray-600">{bio.substr(0, 70) + "..."}</div>
+      <div className="text-gray-600">{bio}</div>
     </div>
   );
 };

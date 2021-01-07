@@ -12,7 +12,7 @@
       "firstName": "Craig",
       "lastName": "Berntson",
       "bio": "Craig has a passion for community and helping other developers improve their skills. He writes the column \"Software Gardening\" in DotNet Curry Magazine and is the co-author of \"Continuous Integration in .NET\" available from Manning.",
-      "isFavorite": true
+      "isFavorite": false
     },
     {
       "id": 10803,
@@ -34,10 +34,8 @@
       "id": 41808,
       "firstName": "Paul",
       "lastName": "Everitt",
-      "sat": true,
-      "sun": true,
-      "isFavorite": false,
-      "bio": "Paul is the PyCharm and WebStorm Developer Advocate at JetBrains. Before that, Paul was a partner at Agendaless Consulting and co-founder of Zope Corporation, taking the first open source application server through $14M of funding."
+      "bio": "Paul is the PyCharm and WebStorm Developer Advocate at JetBrains. Before that, Paul was a partner at Agendaless Consulting and co-founder of Zope Corporation, taking the first open source application server through $14M of funding.",
+      "isFavorite": false
     },
     {
       "id": 1269,
@@ -52,28 +50,22 @@
       "id": 1725,
       "firstName": "Brad",
       "lastName": "Irby",
-      "isFavorite": false,
       "bio": "Brad is an accomplished .NET software architect specializing in Domain Driven Design and Event Driven Architectures.",
-      "sat": true,
-      "sun": false
+      "isFavorite": true
     },
     {
       "id": 18805,
       "firstName": "Mickey W.",
       "lastName": "Mantle",
-      "sat": true,
-      "sun": true,
-      "isFavorite": false,
-      "bio": "Mickey has been developing software systems and products for over 40 years, as a systems programmer, Tech Lead, Manager, VP Engineering, CTO, COO, and now CEO/CTO of his own company."
+      "bio": "Mickey has been developing software systems and products for over 40 years, as a systems programmer, Tech Lead, Manager, VP Engineering, CTO, COO, and now CEO/CTO of his own company.",
+      "isFavorite": true
     },
     {
       "id": 8367,
       "firstName": "Gayle Laakmann",
       "lastName": "McDowell",
-      "sat": true,
-      "sun": false,
-      "isFavorite": false,
-      "bio": "Gayle Laakmann McDowell is the founder and CEO of CareerCup.com and the author of three best selling books."
+      "bio": "Gayle Laakmann McDowell is the founder and CEO of CareerCup.com and the author of three best selling books.",
+      "isFavorite": true
     },
     {
       "id": 187,

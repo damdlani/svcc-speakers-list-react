@@ -1,29 +1,25 @@
 import React, { useContext, useState } from "react";
 import { DataContext, DataProvider } from "../../contexts/DataContext";
+import { REQUEST_STATUS } from "../../reducers/requestReducer";
 import { Speaker } from "../Speaker/Speaker";
 import { SearchBar } from "../SpeakersSearchBar/SearchBar";
 
 const SpeakersComponent = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const {
-    records: speakers,
-    status,
-    error,
-    put,
-  } = useContext(DataContext);
+  const { records: speakers, status, error, put } = useContext(DataContext);
 
   const specialMessage = "";
 
-  if (status.includes("loading")) {
+  if (status === REQUEST_STATUS.loading) {
     return <div className="spinner" />;
   }
 
-  if (status.includes("error")) {
+  if (status === REQUEST_STATUS.error) {
     return (
-      <div>
-        An error occured. Is json-server running? (try 'npm run json-server' at
-        terminal prompt)<br></br> {`ERROR MESSAGE: ${error}`}
+      <div className="text-red-600 text-center">
+        An error occured. Check your internet connection and try again.<br></br>{" "}
+        {`ERROR MESSAGE: ${error}`}
       </div>
     );
   }
@@ -50,11 +46,7 @@ const SpeakersComponent = () => {
               : targetString.includes(searchQuery.trim().toLowerCase());
           })
           .map((speaker) => (
-            <Speaker
-              key={speaker.id}
-              {...speaker}
-              put={put}
-            />
+            <Speaker key={speaker.id} {...speaker} put={put} />
           ))}
       </div>
     </section>
@@ -63,8 +55,11 @@ const SpeakersComponent = () => {
 
 const Speakers = (props) => {
   return (
-    <DataProvider baseURL="http://localhost:4000" route="speakers">
-      <SpeakersComponent {...props}/>
+    <DataProvider
+      baseURL="https://my-json-server.typicode.com"
+      route="damdlani/svcc-speakers-list-react/speakers"
+    >
+      <SpeakersComponent {...props} />
     </DataProvider>
   );
 };
