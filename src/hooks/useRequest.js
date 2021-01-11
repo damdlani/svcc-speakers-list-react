@@ -36,7 +36,7 @@ export const useRequest = (baseURL, route) => {
         });
       } catch (error) {
         if (axios.isCancel(error)) {
-          console.log("Get request canceled");
+          console.log("Get request cancelled");
         } else {
           dispatch({
             type: FETCH_FAILURE,
