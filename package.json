@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jamesives/github-pages-deploy-action": "^3.7.1",
     "autoprefixer": "^10.1.0",
     "axios": "^0.21.1",
     "next": "^10.0.4",
