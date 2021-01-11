@@ -48,7 +48,7 @@ export const useRequest = (baseURL, route) => {
     })();
 
     return () => {
-      console.log("Component terminated and axios request cancelled");
+      console.log("Component terminated and axios request canceled");
       signal.current.cancel();
     };
   }, [baseURL, route]);
