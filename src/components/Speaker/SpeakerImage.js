@@ -2,7 +2,7 @@ import React from "react";
 import { SimpleImg } from "react-simple-img";
 
 export const SpeakerImage = ({id}) => {
-  const imageURL = `/speakerimages/Speaker-${id}.jpg`;
+  const imageURL = `/svcc-speakers-list-react/speakerimages/Speaker-${id}.jpg`;
 
   return (
     <SimpleImg
