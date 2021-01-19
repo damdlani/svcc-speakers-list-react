@@ -8,12 +8,12 @@ const Menu = () => {
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 mb-6 px-6 h-16 rounded-md">
       <div className="w-full flex flex-grow">
         <div className="flex items-center flex-grow">
-          <Link href="/">
+          <Link href="/svcc-speakers-list-react">
             <a className="block md:inline-block text-gray-300 hover:text-white mr-4">
               Home
             </a>
           </Link>
-          <Link href="/speakers">
+          <Link href="/svcc-speakers-list-react/speakers">
             <a className="block md:inline-block text-gray-300 hover:text-white mr-4">
               Speakers
             </a>

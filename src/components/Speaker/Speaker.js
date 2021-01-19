@@ -24,7 +24,7 @@ const SpeakerComponent = ({
           </div>
         </div>
         <div className="mb-6">
-          <img src={`${prefix}/speakerimages/dummy-speaker-image.jpg`} />
+          <img src={`/svcc-speakers-list-react/speakerimages/dummy-speaker-image.jpg`} />
         </div>
         <div>Contact site owner for resolution.</div>
       </div>
