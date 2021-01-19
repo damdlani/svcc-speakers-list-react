@@ -27,6 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build
+      env: 
+        NEXT_PUBLIC_BASE_PATH: /svcc-speakers-list-react
     - run: touch ./out/.nojekyll
       
     - name: Deploy 🚀

@@ -13,6 +13,8 @@ const SpeakerComponent = ({
   showErrorCard,
 }) => {
 
+  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
   if (showErrorCard) {
     return (
       <div className="rounded overflow-hidden shadow-lg p-6 bg-white">
@@ -22,7 +24,7 @@ const SpeakerComponent = ({
           </div>
         </div>
         <div className="mb-6">
-          <img src="/svcc-speakers-list-react/speakerimages/dummy-speaker-image.jpg" />
+          <img src={`${prefix}/speakerimages/dummy-speaker-image.jpg`} />
         </div>
         <div>Contact site owner for resolution.</div>
       </div>

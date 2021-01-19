@@ -1,4 +1,4 @@
 module.exports = {
-  basePath: '/svcc-speakers-list-react',
-  assetPrefix: '/svcc-speakers-list-react'
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
 }
