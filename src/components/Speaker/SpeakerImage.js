@@ -3,7 +3,7 @@ import { SimpleImg } from "react-simple-img";
 
 export const SpeakerImage = ({id}) => {
   const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
-  const imageURL = `/svcc-speakers-list-react/speakerimages/Speaker-${id}.jpg`;
+  const imageURL = `/speakerimages/Speaker-${id}.jpg`;
 
   return (
     <SimpleImg
